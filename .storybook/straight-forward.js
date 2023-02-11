@@ -1,5 +1,3 @@
-// ./storybook/manager.ts
-import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
 
 export default create({
@@ -35,8 +33,7 @@ export default create({
   inputBorderRadius: 4,
 
   // Brand assets
-  brandTitle: 'Newline Storybook',
-  brandUrl: 'https://newline.co',
-  brandImage:
-    'https://d8dgeb1f3fxgw.cloudfront.net/static/img/logo/newline/newline-logo-longwise-solo-lightbg-gray.svg',
+  brandTitle: 'Straight Forward',
+  brandUrl: 'https://github.com/straight-forward-team',
+  brandImage: '/assets/stf-banner.png',
 });
