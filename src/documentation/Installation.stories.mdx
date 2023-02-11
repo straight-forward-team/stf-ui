@@ -23,13 +23,13 @@ If you want to add this UI Kit to your project, first install it as a dependency
 ## npm
 
 ```cli
-npm install @emotion/react @emotion/styled @emotion/css stf-ui
+npm install @emotion/react @emotion/styled @emotion/css @stf-team/ui-kit
 ```
 
 ## yarn
 
 ```cli
-yarn add @emotion/react @emotion/styled @emotion/css stf-ui
+yarn add @emotion/react @emotion/styled @emotion/css @stf-team/ui-kit
 ```
 
 ## Package Configuration
@@ -37,7 +37,7 @@ yarn add @emotion/react @emotion/styled @emotion/css stf-ui
 Then, what you only need to do is wrap your whole application inside `ThemeProvider` component:
 
 ```jsx
-import { ThemeProvider } from 'stf-ui';
+import { ThemeProvider } from '@stf-team/ui-kit';
 
 function App() {
   return <ThemeProvider>/* Your application */</ThemeProvider>;
@@ -52,12 +52,12 @@ What does the [`ThemeProvider`](coming soon) component apply?
 
 ## Extra TS Config
 
-If you use TypeScript and wanna your `@emotion` package to recognize the `stf-ui`'s `Theme` type, Create a `theme.d.ts` (Or other files ending in `.d.ts` and re-declare the `@emotion`'s `Theme` with `stf-ui` `Theme` type.
+If you use TypeScript and wanna your `@emotion` package to recognize the `@stf-team/ui-kit`'s `Theme` type, Create a `theme.d.ts` (Or other files ending in `.d.ts` and re-declare the `@emotion`'s `Theme` with `@stf-team/ui-kit` `Theme` type.
 
 ```ts
 // theme.d.ts
 import '@emotion/react';
-import type { Theme as SnappTheme } from 'stf-ui';
+import type { Theme as SnappTheme } from '@stf-team/ui-kit';
 
 declare module '@emotion/react' {
   export interface Theme extends SnappTheme {}
