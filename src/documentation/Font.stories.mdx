@@ -1,0 +1,127 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { OVERVIEW } from '@/constants/categories';
+
+<Meta
+  title={`${OVERVIEW}/Fonts`}
+  parameters={{
+    fullPage: true,
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    viewport: {
+      defaultViewport: 'responsive',
+    },
+  }}
+/>
+
+# Fonts
+
+We do not provide any font alongside the `stf-ui`. The font families should be declared in your project separately and only provide their names as `fontFamily` prop to the `ThemeProvider` to be referenced by the package:
+
+```jsx
+function App() {
+  const theme = {
+    typography: {
+      'fa-IR': {
+        fontFamily: 'yourFaFontFamily',
+      },
+      'en-GB': {
+        fontFamily: 'yourEnFontFamily',
+      },
+    },
+  };
+  return <ThemeProvider theme={theme}>/* Your application */</ThemeProvider>;
+}
+```
+
+**Recommendation**: Import your font declarations's `css` file in your `index.html` inside `<head>` tags.
+
+## Uploaded Font Families on CDN
+
+We've uploaded some fonts to be referenced in your `css` as the font file. If you use these links, there is a chance for the user to have them inside the cache of him/his browser and do not download them again that ends up with a better user experience.<
+
+An uploaded font file link has this template:
+
+`https://you-cdn/shared/fonts/<language>/<font-name>-<font-weight>.<font-format>`
+
+### `<language>` and `<font-name>`
+
+We've already uploaded some fonts on `you-cdn` according to their language.
+
+#### `<language>`: `fa`
+
+- `IRANSansXFaNum` (It's a Farsi-numeral font)
+
+#### `<language>`: `en`
+
+- `InterEnNum` (It's a English-numeral font, even Arabic and Farsi "number" characters are displayed in English)
+
+### `<font-weight>`
+
+We've uploaded 3 weights of each font family:
+
+- `light`
+- `regular`
+- `medium`
+
+### `<font-format>`
+
+Each of them has 4 formats:
+
+- `ttf`
+- `woff`
+- `woff2`
+- `eof`
+
+### Usage Example
+
+Based on the above descriptions, you can use uploaded fonts as follows:
+
+```css
+/* fonts.css */
+@font-face {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-light.woff2);
+  src: url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-light.eot) format('embedded-opentype'),
+    /* IE6-8 */ url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-light.woff2)
+      format('woff2'),
+    /* FF39+,Chrome36+, Opera24+*/
+      url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-light.woff), format(
+      'woff'
+    ), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+      url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-light.ttf) format('truetype');
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-regular.woff2);
+  src: url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-regular.eot) format('embedded-opentype'),
+    /* IE6-8 */
+      url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-regular.woff2) format('woff2'),
+    /* FF39+,Chrome36+, Opera24+*/
+      url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-regular.woff) format('woff'),
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+      url(https://your-cdn/shared/fonts/fa/IRANSansXFaNum-regular.ttf) format('truetype');
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://your-cdn/shared/fonts/en/IRANSansXFaNum-medium.woff2);
+  src: url(https://your-cdn/shared/fonts/en/IRANSansXFaNum-medium.eot) format('embedded-opentype'),
+    /* IE6-8 */
+      url(https://your-cdn/shared/fonts/en/IRANSansXFaNum-medium.woff2) format('woff2'),
+    /* FF39+,Chrome36+, Opera24+*/
+      url(https://your-cdn/shared/fonts/en/IRANSansXFaNum-medium.woff) format('woff'),
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+      url(https://your-cdn/shared/fonts/en/IRANSansXFaNum-medium.ttf) format('truetype');
+  font-display: fallback;
+}
+```

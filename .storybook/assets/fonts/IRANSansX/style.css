@@ -1,0 +1,48 @@
+﻿/**
+*
+*	Name:			IRANSansX Fonts
+*	Version:			2.0
+*	Author:			Moslem Ebrahimi (moslemebrahimi.com)
+*	Created on:		June 22, 2021
+*	Updated on:		June 22, 2021
+*	Website:			http://fontiran.com
+*	Copyright:		Commercial/Proprietary Software
+--------------------------------------------------------------------------------------
+فونتایران سنس Xا یک نرم افزار مالکیتی محسوب می شود. جهت آگاهی از قوانین استفاده از این فونت ها لطفا به وب سایت (فونت ایران دات کام) مراجعه نمایید
+--------------------------------------------------------------------------------------
+IRANSansX fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com 
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (Y7DBVY)
+------------------------------------------------------------------------------------- fonts/-
+*	
+**/
+
+@font-face {
+  font-family: IRANSansX;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./woff2/IRANSansX-Light.woff2') format('woff2'),
+    url('./woff/IRANSansX-Light.woff') format('woff'),
+    url('./ttf/IRANSansX-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IRANSansX;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./woff2/IRANSansX-Regular.woff2') format('woff2'),
+    url('./woff/IRANSansX-Regular.woff') format('woff'),
+    url('./ttf/IRANSansX-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IRANSansX;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./woff2/IRANSansX-Medium.woff2') format('woff2'),
+    url('./woff/IRANSansX-Medium.woff') format('woff'),
+    url('./ttf/IRANSansX-Medium.ttf') format('truetype');
+}

@@ -1,0 +1,263 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { OVERVIEW } from '@/constants/categories';
+
+<Meta
+  title={`${OVERVIEW}/Contribution`}
+  parameters={{
+    fullPage: true,
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    viewport: {
+      defaultViewport: 'responsive',
+    },
+  }}
+/>
+
+# Contribution
+
+## Getting Started to Develop
+
+If you only want to use this UI Kit inside your project, checkout [Usage Guide](#use-it-inside-your-project).
+
+```
+npm install
+```
+
+We currently use [Storybook](https://storybook.js.org/) to visualize components during development phase, you can run
+
+```
+npm run storybook
+```
+
+to start an storybook server while developing components.
+
+---
+
+## Prerequisites Knowledge
+
+- **Typescript**: The project is based on Typescript. Following courses and links are your friends to get involved with Typescript in a proper way.
+  - [Youtube - React & TypeScript - Course for Beginners](https://www.youtube.com/watch?v=FJDVKeh7RJI) - Watch it if you're beginner to TS
+  - [Frontend Masters - React and TypeScript](https://frontendmasters.com/courses/react-typescript/) - A TS in-depth course
+  - [React TypeScript Cheatsheets](https://react-typescript-cheatsheet.netlify.app/) - One of the best available cheat sheets you can find
+- **Emotion**: Our Styling system is based on [@emotion/styled](https://emotion.sh/docs/styled) which is pretty similar to `styled-components`. If you don't have any experience with Emotion or Styled Components, Please read their official documentations.
+  - [Emotion - Styled Components](https://emotion.sh/docs/styled)
+  - [Styled Components - Documentation](https://styled-components.com/docs)
+
+---
+
+## Installed Packages
+
+### Core Packages
+
+- [Emotion - Styled Components](https://emotion.sh/docs/styled): as the css-in-js library.
+
+> Currently we do not use any bundler to bundle components and other files. We simply use `tsc` compiler to make codes ready to be published on NPM. however you can use `npm run storybook` to visualize components using Storybook server.
+
+:construction: Under Construction :construction:
+
+---
+
+## Directory Structure
+
+Inside the `src` directory, you can see:
+
+```txt
+.
+└── src
+    ├── assets
+    └── documentation
+```
+
+- `assets`: Provides normalizer styles and custom style to be applied globally
+- `documentation`: Consist of all global documentation files
+
+---
+
+## Conventions
+
+We use [conventional commit](https://www.conventionalcommits.org) as the convention for commit messages. Please obey its rules otherwise you get error and can not commit with unprincipled commit messages.
+
+### Naming Conventions
+
+We use these name casing conventions:
+
+- Each component directory: PascalCase (`<ComponentName>`)
+- Each file inside each component: PascalCase (`<ComponentName>.<postfix>.<ts/tsx>`)
+
+:construction: Under Construction :construction:
+
+### Component Types Definition Conventions
+
+We have three types in each `.types` component:
+
+- `<Component>BaseProps`: which is a base for emotion and JSX component type.
+- `<Component>StyledProps`: which will be passed to the main emotion component and **define which props always is passed to emotion component**
+- `<Component>Props`: which will be used in JSX component and **define the properties the developer can provide to the component**
+
+#### `<Component>BaseProps`
+
+> **IMPORTANT**: Always write JSDoc above each prop, the Storybook can read them and add the comments to the `Docs` page alognside its type definition
+
+##### Required props
+
+Make props as required if:
+
+1. You want to pass them to emotion component (meaning they should always have certain type and couldn't be `undefined`) - Be aware that it doesn't mean the developer have to provide them to the component, You may set a default value for them (You will define them in `<Component>Props` later too) and then pass them to emotion component (e.g. we define the `color` prop as required since we want to set it a default value and when it be passed to the emotion component, it will be one of `ColorVariant`)
+2. User should provide them, they're required but will not be passed through emotion component, be aware to `Omit` these type of props in `<Component>StyledProps` type.
+
+##### Optional props
+
+Make properties as optional if they could be `undefined` (they won't be passed to main emotion component)
+
+Here, the `title` property is undefined, we will pass it to `svg` component but it could be `undefined`, we don't set a default value for it and the developer may not provide it too
+
+#### `<Component>StyledProps`
+
+Usually this type will be identical to `<Component>BaseProps`, but there are some exceptions:
+
+- You could pick some required prop from `<Component>BaseProps` if you don't want to pass all of them to emotion component. (Checkout #2 from [required props])
+- You can omit some other props which are required for the main component logic but is optional for emotion compoment and you don't want to pass them to.
+
+#### `<Component>Props`
+
+`PartialBy` is used to make the props optional that are required in `<Component>BaseProps` (and should be passed to emotion component) but you wanna set them a default value in JSX, so the user won't have to provide them. You can arguments as:
+
+- first argument: The `<Component>BaseProps` or `OverrideProps<'<HTMLElement>', <Component>BaseProps>` if you want your component accept all props of a pure HTML attribute (if they're the underlying HTML tag of your component)
+- second argument: list of all the props that are required in `<Component>BaseProps` but you don't want the developer to be forced to provide them and they will have default values.
+
+```typescript
+// An example for `Button.types.ts`
+import { ReactNode } from 'react';
+import { ColorVariant } from '@/theme';
+import { OverrideProps, PartialBy } from '@/types';
+
+type ButtonBaseProps = {
+  children?: ReactNode;
+  /**
+   * Color property. can be only one of main color variants.
+   */
+  color: ColorVariant;
+  /**
+   * Provides a human-readable title for the element that contains it.
+   * https://www.w3.org/TR/SVG-access/#Equivalent
+   */
+  title?: string;
+};
+
+export type ButtonStyledProps = ButtonBaseProps;
+
+export type SvgIconProps = PartialBy<
+  OverrideProps<'button', ButtonBaseProps>,
+  'color'
+>;
+```
+
+---
+
+## Custom Styling
+
+We have 3 methods to customize our components (for example adding padding, margin,...), if you are familiar with popular design system library like MUI or Mantine, those library provide a props on components named `sx` the sx is an Object or Array of Objects that you can pass css properties with access to theme and it generates className that add provided style to your components, the second way to customize your components is to providing className to the component. also for Layout components such as Box and Stack components (currently only Box component) we add global props name `SystemStyledProps` that you can customize your component very easily. to see the customization that SystemStyledProps add see the [type definitions](https://gitlab.snapp.ir/frontend/snapp-ui/-/blob/develop/src/types/general.ts)
+
+### How adding `classNames` work?
+
+The component accept props named `className` and we pass this props to the one of element that returned from the component so the className applied on the component.
+
+```tsx
+import type { ReactNode } from 'react';
+import { DefaultProps } from '@/types';
+
+type ButtonProps = DefaultProps & {
+  children: ReactNode;
+};
+
+const Button = ({ className, children }: ButtonProps) => {
+  return <button className={className}>{children}</button>;
+};
+```
+
+### How `sx` works in depth?
+
+The `sx` use (emotion css function)[https://emotion.sh/docs/@emotion/css#array-of-object-styles] to handle generating className. and with `clsx` util we combine `sx generated className` with other classNames.
+
+```tsx
+import type { ReactNode } from 'react';
+import { useStyles } from '@/hooks/useStyles';
+import { DefaultProps } from '@/types';
+
+type ButtonProps = DefaultProps & {
+  children: ReactNode;
+};
+
+const Button = ({ className, sx, children }: ButtonProps) => {
+  const classNames = useStyles(sx, className);
+  return <button className={classNames}>{children}</button>;
+};
+```
+
+### How `SystemStyledProps` helping us?
+
+For our Layout components, we use the props that you provides( we use `extractSystemStyles` to extract `SystemStylesProps` from other props) and generate styles with `generateSystemStyles` then like `sx` we combine classNames with `clsx` util.
+
+```tsx
+import type { ReactNode } from 'react';
+import { useStyles } from '@/hooks/useStyles';
+import { extractSystemStyles } from '@/utility/extract-system-styles';
+import { DefaultLayoutProps } from '@/types';
+
+type ButtonProps = DefaultLayoutProps & {
+  children: ReactNode;
+};
+
+const Button = ({ className, sx, children, ...others }: ButtonProps) => {
+  const { systemStyles, rest } = extractSystemStyles(others);
+  const classNames = useStyles(sx, className, systemStyles);
+  return <button className={classNames}>{children}</button>;
+};
+```
+
+As we described above the custom styling use classNames to add styles, so they have priority to each other(for overriding styles,...):
+
+- `sx` (Most priority)
+- `SystemStyledProps`
+- `className` (Least priority)
+
+**Note**: Also there is a `style` props that is like React `style props`.
+
+components that support `SystemProps`:
+
+- `<Stack />`
+- `<Box />`
+- `<LayoutContent />
+
+---
+
+## Available Scripts
+
+We have a few commands to be ran using package manager cli:
+
+#### `build`
+
+Use [`tsc`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) compiler to generate `js`s and `d.ts` type definitions for all components inside `dist` directory.
+
+#### `copyfiles`
+
+Copy non TS/JS files into `dist` directory. It should be run during `build` command (after creating `dist` directory using `tsc` compiler) and it's not supposed to execute separately.
+
+#### `storybook`
+
+Run Storybook server which helps developers to visually see available created components through rich UI.
+
+#### `build-storybook`
+
+Build an static version of Storybook inside `storybook-static` directory. useful for deploying Storybook and make it available online.
+
+#### `lint`
+
+Run `eslint` through code. To find if there's any error using CLI. useful to be used on CICD system.
+
+#### `lint:fix`
+
+Run `eslint` with `fix` flag. It will fix fixable errors (auto-fixable ones).
+
+---

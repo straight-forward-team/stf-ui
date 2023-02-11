@@ -1,0 +1,136 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "jest",
+    "@typescript-eslint",
+    "prettier",
+    "no-relative-import-paths"
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    // React
+    "react/react-in-jsx-scope": "off", // Since we use React >= 17
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          // ".jsx", // NOTE: enable it if you want to code in JS
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": [
+          "function-declaration",
+          "function-expression",
+          "arrow-function"
+        ],
+        "unnamedComponents": ["function-expression", "arrow-function"]
+      }
+    ],
+
+    // Prettier
+    "prettier/prettier": "error",
+
+    // ESLint - import plugin
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        // "js": "never", "jsx": "never", // NOTE: enable it if you want to code in JS
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.stories.*",
+          "**/.storybook/**/*.*",
+          "**/*.test.*",
+          "**/*.spec.*",
+          "**/__tests__/**",
+          "src/setupTest.ts",
+          "src/test-utils.tsx"
+        ]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react*",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/**/*", // TODO: to be changed after configuring path aliases
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "never",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-relative-import-paths/no-relative-import-paths": [
+      "error",
+      { "allowSameFolder": true, "rootDir": "src", "prefix": "@" }
+    ],
+
+    // ESLint - Core
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
+    "no-console": "warn",
+    "no-unused-expressions": ["error"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "arrow-body-style": ["error", "as-needed"],
+    "no-restricted-exports": ["error", { "restrictedNamedExports": [] }]
+  }
+}
