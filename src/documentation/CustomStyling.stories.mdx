@@ -1,0 +1,102 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { OVERVIEW } from '@/constants/categories';
+
+<Meta
+  title={`${OVERVIEW}/Custom Styling`}
+  parameters={{
+    fullPage: true,
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    viewport: {
+      defaultViewport: 'responsive',
+    },
+  }}
+/>
+
+# Custom Styling
+
+for layout component you can use `SystemStyledProps`.
+
+1. you can add `padding` & `margin` in any direction via props:
+
+use these properties as `suffix` of `p`(padding) & `m`(margin):
+`y`: in `y` axis direction
+`x`: in `x` axis direction
+`t`: top
+`b`: bottom
+`l`: left
+`r`: right
+`e`: end
+`s`: start
+
+Example
+
+```tsx
+function FirstComponent() {
+  return <Box p='xl'>padding to all directions of the element</Box>;
+}
+
+function SecondComponent() {
+  return <Box ms='2xl'>margin to start the element</Box>;
+}
+```
+
+2. you can use position for your component with four values: `absolute` `relative` `fixed` `sticky`
+
+```tsx
+function Component() {
+  return <Box position='sticky'>sticky position for Bax component</Box>;
+}
+```
+
+3. you can use border radius for your component with eight values: `xs` `sm` `md` `lg` `xl` `2xl` `3xl` `4xl`
+
+```tsx
+function Component() {
+  return (
+    <Box borderRadius='xl'> xl value for border radius of Bax component </Box>
+  );
+}
+```
+
+for `sx` also you can pass function or value to it see below:
+**note**: `sx` can be also array of `CSS objects` or `functions`
+
+```tsx
+function Component() {
+  return (
+    <Box
+      {...args}
+      sx={{
+        '&:hover': {
+          backgroundColor: '#eee',
+        },
+
+        '@media (max-width: 755px)': {
+          fontSize: 14,
+        },
+      }}
+    >
+      add custom styling by sx
+    </Box>
+  );
+}
+```
+
+Also you can access theme via pass function to sx
+
+```tsx
+function Component() {
+  return (
+    <Box
+      {...args}
+      sx={(theme) => ({
+        color: theme.colors.caution.default,
+      })}
+    >
+      hello from custom color from theme
+    </Box>
+  );
+}
+```

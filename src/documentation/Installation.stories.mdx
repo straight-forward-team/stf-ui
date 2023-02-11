@@ -1,0 +1,65 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { OVERVIEW } from '@/constants/categories';
+
+<Meta
+  title={`${OVERVIEW}/Installation`}
+  parameters={{
+    fullPage: true,
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+    viewport: {
+      defaultViewport: 'responsive',
+    },
+  }}
+/>
+
+# Installation
+
+## Package Installation
+
+If you want to add this UI Kit to your project, first install it as a dependency:
+
+## npm
+
+```cli
+npm install @emotion/react @emotion/styled @emotion/css stf-ui
+```
+
+## yarn
+
+```cli
+yarn add @emotion/react @emotion/styled @emotion/css stf-ui
+```
+
+## Package Configuration
+
+Then, what you only need to do is wrap your whole application inside `ThemeProvider` component:
+
+```jsx
+import { ThemeProvider } from '@snapp/ui';
+
+function App() {
+  return <ThemeProvider>/* Your application */</ThemeProvider>;
+}
+```
+
+What does the [`ThemeProvider`](coming soon) component apply?
+
+- Enabling UI Kit default theme inside your application to be used by components (Colors, Elevations, Spacing, Typography etc.). You can override some parts of this theme by providing your own `theme` prop. Checkout [type of the theme you can provide (StrictTheme)](https://gitlab.snapp.ir/frontend/snapp-ui/-/tree/develop/src/components/ThemeProvider/ThemeProvider.types.ts).
+
+- Applying [`modern-normalize.css`](https://github.com/sindresorhus/modern-normalize) as well as [some basic reset styles](https://gitlab.snapp.ir/frontend/snapp-ui/-/blob/develop/src/assets/style.css) to normalize styles between browsers and applying a bunch of other cool stuff. You can preventing [`modern-normalize.css`](https://github.com/sindresorhus/modern-normalize) as well as [some basic reset styles](https://gitlab.snapp.ir/frontend/snapp-ui/-/blob/develop/src/assets/style.css) to be applied by passing `withModernNormalizeCSS={false}` prop.
+
+## Extra TS Config
+
+If you use TypeScript and wanna your `@emotion` package to recognize the `stf-ui`'s `Theme` type, Create a `theme.d.ts` (Or other files ending in `.d.ts` and re-declare the `@emotion`'s `Theme` with `stf-ui` `Theme` type.
+
+```ts
+// theme.d.ts
+import '@emotion/react';
+import type { Theme as SnappTheme } from 'stf-ui';
+
+declare module '@emotion/react' {
+  export interface Theme extends SnappTheme {}
+}
+```
