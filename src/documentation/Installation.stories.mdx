@@ -57,9 +57,9 @@ If you use TypeScript and wanna your `@emotion` package to recognize the `@stf-t
 ```ts
 // theme.d.ts
 import '@emotion/react';
-import type { Theme as SnappTheme } from '@stf-team/ui-kit';
+import type { Theme as STFTheme } from '@stf-team/ui-kit';
 
 declare module '@emotion/react' {
-  export interface Theme extends SnappTheme {}
+  export interface Theme extends STFTheme {}
 }
 ```
